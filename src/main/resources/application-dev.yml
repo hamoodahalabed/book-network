@@ -28,14 +28,20 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: "http://localhost:9090/realms/book-social-network"
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: "http://localhost:9090/realms/book-social-network"
+#application:
+#  file:
+#    uploads:
+#      photos-output-path: ./uploads
+
 application:
-  file:
-    uploads:
-      photos-output-path: ./uploads
+  security:
+    jwt:
+      secret-key: 86a1d440fcee3d4404666a19d7c762346bccb09c92987b1024febfd5dc7d0611
+      expiration: 8640000
 server:
   port: 8088
