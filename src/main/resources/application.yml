@@ -11,3 +11,8 @@ springdoc:
 server:
   servlet:
     context-path: /api/v1/
+
+logging:
+  level:
+    org:
+      springframework=DEBUG:

@@ -2,3 +2,6 @@
 2- JWT utility class => responsible for generating, validating and parsing the jwt token
 3- JWT request filter => every incoming request intercepted by the filter where the jwt token is extracted and validated
 4- security configuration => config the http
+
+
+
