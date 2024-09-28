@@ -1,6 +1,7 @@
 package com.mohammad.book_network.handler;
 
 import com.mohammad.book_network.exceptions.InvalidTokenException;
+import com.mohammad.book_network.exceptions.UserNotFoundException;
 import jakarta.mail.MessagingException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,9 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.mohammad.book_network.handler.BusinessErrorCodes.*;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -51,6 +50,19 @@ public class GlobalExceptionHandler {
                                         Map.entry("accountEnabled",
                                         "Check you activation email to activate account or to resend new token if expired")
                                 )))
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleException(UserNotFoundException exp) {
+        return ResponseEntity
+                .status(NOT_FOUND)
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(USER_NOT_FOUND.getCode())
+                                .businessErrorDescription(USER_NOT_FOUND.getDescription())
+                                .error(exp.getMessage())
                                 .build()
                 );
     }

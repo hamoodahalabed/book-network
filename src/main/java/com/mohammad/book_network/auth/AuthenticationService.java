@@ -2,6 +2,7 @@ package com.mohammad.book_network.auth;
 
 import com.mohammad.book_network.email.EmailService;
 import com.mohammad.book_network.exceptions.InvalidTokenException;
+import com.mohammad.book_network.exceptions.UserNotFoundException;
 import com.mohammad.book_network.role.RoleRepository;
 import com.mohammad.book_network.security.JwtService;
 import com.mohammad.book_network.user.Token;
@@ -9,7 +10,6 @@ import com.mohammad.book_network.user.TokenRepository;
 import com.mohammad.book_network.user.User;
 import com.mohammad.book_network.user.UserRepository;
 import jakarta.mail.MessagingException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.mohammad.book_network.email.EmailTemplateName;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -100,9 +99,9 @@ public class AuthenticationService {
         return codeBuilder.toString();
     }
 
-    public AuthenticationResponse authenticate(AuthenticateRequest request) {
+    public AuthenticationResponse authenticate(AuthenticateRequest request) throws UserNotFoundException {
         User saveduser = userRepository.findByEmail(request.email())
-                .orElseThrow(() -> new IllegalStateException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         if (!saveduser.isEnabled()) {
             throw new DisabledException("User account is not enabled");
@@ -122,7 +121,7 @@ public class AuthenticationService {
 
 
    // @Transactional
-    public void activateAccount(String token) throws MessagingException {
+    public void activateAccount(String token) throws MessagingException, UserNotFoundException {
         Token savedToken = tokenRepository.findByToken(token)
                 .orElseThrow(() -> new InvalidTokenException("Token not founded"));
         if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
@@ -131,7 +130,7 @@ public class AuthenticationService {
         }
 
         var user = userRepository.findById(Long.valueOf(savedToken.getUser().getId()))
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
         user.setEnabled(true);
         userRepository.save(user);
 

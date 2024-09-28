@@ -3,10 +3,7 @@ package com.mohammad.book_network.handler;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.NOT_IMPLEMENTED;
+import static org.springframework.http.HttpStatus.*;
 
 @Getter
 public enum BusinessErrorCodes {
@@ -16,6 +13,7 @@ public enum BusinessErrorCodes {
     ACCOUNT_LOCKED(302, FORBIDDEN, "User account is locked"),
     ACCOUNT_DISABLED(303, FORBIDDEN, "User account is disabled"),
     BAD_CREDENTIALS(304, FORBIDDEN, "Login and / or Password is incorrect"),
+    USER_NOT_FOUND(404, NOT_FOUND, "User Not found"),
     INVALID_TOKEN(304, FORBIDDEN, "Token is invalid a check that you are entered the correct token"),
 
     ;
