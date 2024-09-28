@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record AuthenticateRequest (
+        @NotBlank(message = "Password cant be null")
         @Email(message = "Please enter valid email")
         String email,
         @NotBlank(message = "Password cant be null")

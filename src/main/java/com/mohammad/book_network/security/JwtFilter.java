@@ -62,3 +62,10 @@ public class JwtFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+//UsernamePasswordAuthenticationToken is a concrete implementation of the Authentication interface in Spring Security.
+//If the authentication is successful, the UsernamePasswordAuthenticationToken is populated with the user's authorities
+//and stored in the SecurityContextHolder.
+//This means that the user is now authenticated for the duration of the request.
+//For example, if a request is made to a specific endpoint,
+//Spring Security will look at the authorities associated with
+//the UsernamePasswordAuthenticationToken to determine if the user has permission to access that endpoint.

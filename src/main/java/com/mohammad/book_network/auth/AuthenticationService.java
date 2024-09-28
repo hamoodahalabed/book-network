@@ -1,6 +1,7 @@
 package com.mohammad.book_network.auth;
 
 import com.mohammad.book_network.email.EmailService;
+import com.mohammad.book_network.exceptions.InvalidTokenException;
 import com.mohammad.book_network.role.RoleRepository;
 import com.mohammad.book_network.security.JwtService;
 import com.mohammad.book_network.user.Token;
@@ -12,6 +13,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -99,6 +101,14 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticateRequest request) {
+        User saveduser = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new IllegalStateException("User not found"));
+
+        if (!saveduser.isEnabled()) {
+            throw new DisabledException("User account is not enabled");
+        }
+
+
         var auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.email(), request.password())
         );
@@ -114,11 +124,10 @@ public class AuthenticationService {
    // @Transactional
     public void activateAccount(String token) throws MessagingException {
         Token savedToken = tokenRepository.findByToken(token)
-                // todo exception has to be defined
-                .orElseThrow(() -> new RuntimeException("Invalid token"));
+                .orElseThrow(() -> new InvalidTokenException("Token not founded"));
         if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
             sendValidationEmail(savedToken.getUser());
-            throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
+            throw new InvalidTokenException("Activation token has expired. A new token has been send to the same email address");
         }
 
         var user = userRepository.findById(Long.valueOf(savedToken.getUser().getId()))

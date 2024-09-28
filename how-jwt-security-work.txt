@@ -1,7 +1,26 @@
+
+
+
+
+
+
 1- Authentication controller => user send login request if successful jwt generated and returned
 2- JWT utility class => responsible for generating, validating and parsing the jwt token
 3- JWT request filter => every incoming request intercepted by the filter where the jwt token is extracted and validated
 4- security configuration => config the http
 
 
+ 1- Implement UserDetails and UserDetailsService: These classes handle fetching user data
+ UserDetails: Represents a user in the system with credentials and authorities (roles).
+ UserDetailsService: Responsible for retrieving user information by username.
 
+ 2- Create JWT Utility Class
+ JWT Utility: A helper class that generates JWT tokens and validates them.
+
+ 3- Create JWT Filter
+ OncePerRequestFilter: A base class used to ensure that the filter is only applied once per request.
+
+ 4- Configure Security (Override WebSecurityConfigurerAdapter)
+
+ 5- Implement Authentication Endpoint
+ Authentication Controller: A controller that processes login and register requests and generates JWT tokens.

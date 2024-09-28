@@ -51,10 +51,10 @@ public class User implements UserDetails, Principal {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    @Override
+    @Override //core interface in Spring Security that represents an authority (GrantedAuthority)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles
-                .stream()
+                .stream()// concrete implementation of the GrantedAuthority interface (SimpleGrantedAuthority)
                 .map(r -> new SimpleGrantedAuthority(r.getName()))
                 .collect(Collectors.toList());
     }
