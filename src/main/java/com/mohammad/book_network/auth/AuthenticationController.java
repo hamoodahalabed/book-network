@@ -1,5 +1,6 @@
 package com.mohammad.book_network.auth;
 
+import com.mohammad.book_network.exceptions.UserNotFoundException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -27,12 +28,12 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate (
             @RequestBody @Valid AuthenticateRequest request
-    ) {
+    ) throws UserNotFoundException {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
     @GetMapping("/activate-account")
-    public void confirm (@RequestParam String token) throws MessagingException {
+    public void confirm (@RequestParam String token) throws MessagingException, UserNotFoundException {
         authenticationService.activateAccount(token);
     }
 
