@@ -1,6 +1,7 @@
 package com.mohammad.book_network.handler;
 
 import com.mohammad.book_network.exceptions.InvalidTokenException;
+import com.mohammad.book_network.exceptions.OperationNotPermittedException;
 import com.mohammad.book_network.exceptions.UserNotFoundException;
 import jakarta.mail.MessagingException;
 import org.springframework.http.ResponseEntity;
@@ -118,17 +119,18 @@ public class GlobalExceptionHandler {
 //                );
 //    }
 //
-//    @ExceptionHandler(OperationNotPermittedException.class)
-//    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp) {
-//        return ResponseEntity
-//                .status(BAD_REQUEST)
-//                .body(
-//                        ExceptionResponse.builder()
-//                                .error(exp.getMessage())
-//                                .build()
-//                );
-//    }
-//
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp) {
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(exp.getMessage())
+                                .businessErrorDescription("You are not allowed to perform this operation")
+                                .build()
+                );
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exp) {
         Set<String> errors = new HashSet<>();

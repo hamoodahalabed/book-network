@@ -1,6 +1,6 @@
 package com.mohammad.book_network.exceptions;
 
-public class UserNotFoundException extends Exception{
+public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException(){
         super();
     }

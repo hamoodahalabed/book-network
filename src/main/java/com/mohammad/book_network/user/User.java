@@ -1,5 +1,7 @@
 package com.mohammad.book_network.user;
 
+import com.mohammad.book_network.book.Book;
+import com.mohammad.book_network.history.BookTransactionHistory;
 import com.mohammad.book_network.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -51,6 +53,12 @@ public class User implements UserDetails, Principal {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany
+    private List<BookTransactionHistory> histories;
+
     @Override //core interface in Spring Security that represents an authority (GrantedAuthority)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles
@@ -97,4 +105,5 @@ public class User implements UserDetails, Principal {
     public String getFullName () {
         return firstname + " " + lastname;
     }
+
 }

@@ -1,14 +1,16 @@
-package com.mohammad.book_network.feedback;
+package com.mohammad.book_network.history;
 
 import com.mohammad.book_network.book.Book;
 import com.mohammad.book_network.common.BaseEntity;
-import jakarta.persistence.*;
+import com.mohammad.book_network.user.User;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
 
 @Getter
 @Setter
@@ -16,12 +18,16 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class FeedBack extends BaseEntity {
+public class BookTransactionHistory extends BaseEntity {
 
-    private double review;
-    private String comment;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
+
+    private boolean returned;
+    private boolean returnApproved;
 }
