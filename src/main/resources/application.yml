@@ -6,7 +6,7 @@ spring:
       max-file-size: 50MB
 springdoc:
   default-produces-media-type: application/json # Tell OpenAPI documentation generated will assume
-                                                # that all your controllers produce json
+                                             # that all your controllers produce json
 
 server:
   servlet:
@@ -16,3 +16,5 @@ logging:
   level:
     org:
       springframework=DEBUG:
+
+

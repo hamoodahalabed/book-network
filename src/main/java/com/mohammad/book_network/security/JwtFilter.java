@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,7 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
@@ -27,10 +29,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-          @NonNull HttpServletRequest request,
-          @NonNull HttpServletResponse response,
-          @NonNull FilterChain filterChain
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
+
+        String servletPath = request.getServletPath();
+        log.info("Servlet Path: {}", servletPath); // Log the servlet path
 
         if (request.getServletPath().contains("/api/v1/auth")) {
             filterChain.doFilter(request, response);
