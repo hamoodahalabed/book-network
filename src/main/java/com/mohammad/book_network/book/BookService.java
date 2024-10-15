@@ -22,12 +22,13 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class    BookService {
+public class BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper mapper;
     private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
     private final FileStorageService fileStorageService;
+
     public Integer save(BookRequest request, Authentication connectedUser) {
 
         User user = (User) connectedUser.getPrincipal();
@@ -236,4 +237,5 @@ public class    BookService {
         book.setBookCover(bookCoverPath);
         bookRepository.save(book);
     }
+
 }
