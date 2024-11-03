@@ -1,0 +1,38 @@
+<div class="body">
+
+<div class="activation-container">
+
+  <div class="fail-activation-container glass alert alert-info" *ngIf="errorExist">
+    <h2>Activation Fail!</h2>
+ {{ activateErrorMsg }}.
+  </div>
+
+  <div class="glass alert alert-info" *ngIf="isSubmitted; else success">
+    <h2>Activation Successful!</h2>
+    <p> {{ activateErrorMsg }}.</p>
+    <button class="btn btn-success" (click)="redirectToLogin()">Go to Login</button>
+  </div>
+
+
+  <ng-template #success>
+    <div >
+      <h2>Activate Account</h2>
+      <p>Please enter the activation code sent to your email.</p>
+
+      <div class="card">
+        <code-input
+          [isCodeHidden]="false"
+          [codeLength]="6"
+          [code]="'number'"
+          (codeCompleted)="activateAccount($event)"
+          class="code-input">
+        </code-input>
+      </div>
+
+    </div>
+  </ng-template>
+
+
+  </div>
+
+</div>

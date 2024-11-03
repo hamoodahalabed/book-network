@@ -1,0 +1,35 @@
+.body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.activation-container {
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+
+
+.fail-activation-container h2 {
+  color: red;
+}
+
+.card {
+
+background: #ffffff;
+display: block;
+}
+
+h2,p {
+  color: #eeeeee;
+}
+
+.alert {
+  background: transparent;
+}
+
