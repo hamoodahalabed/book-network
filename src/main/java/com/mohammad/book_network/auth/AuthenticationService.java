@@ -2,6 +2,7 @@ package com.mohammad.book_network.auth;
 
 import com.mohammad.book_network.email.EmailService;
 import com.mohammad.book_network.exceptions.InvalidTokenException;
+import com.mohammad.book_network.exceptions.OperationNotPermittedException;
 import com.mohammad.book_network.exceptions.UserNotFoundException;
 import com.mohammad.book_network.role.RoleRepository;
 import com.mohammad.book_network.security.JwtService;
@@ -40,6 +41,10 @@ public class AuthenticationService {
     private String activationUrl;
 
     public void registerUser(RegistrationRequest registrationRequest) {
+
+        if (userRepository.findByEmail(registrationRequest.email()).isPresent())
+            throw new OperationNotPermittedException("User already registered");
+
         var userRole = roleRepository.findByName("USER") // get the user role to link it with the registered user
                 .orElseThrow(() -> new IllegalStateException("User role not found")); // todo better exception handling
 
@@ -52,6 +57,7 @@ public class AuthenticationService {
                 .enabled(false)
                 .roles(List.of(userRole))
                 .build();
+
 
         userRepository.save(user);
         try {

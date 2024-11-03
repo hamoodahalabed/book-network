@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "mohammad.sh.alabed@gmail.com",
                         url = "https://mohammad.com"
                 ),
-                description = "OpenApi documentation for Spring Security",
+                description = "OpenApi documentation for book application",
                 title = "OpenApi specification - mohammad",
                 version = "1.0",
                 license = @License(

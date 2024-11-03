@@ -54,11 +54,11 @@ application:
 
   mailing:
     frontend:
-      activation-url: http:/192.168.100.43:4200/activate-account
+      activation-url: http://localhost:4200/activate-account
 
   file:
     uploads:
-      photos-output-path: ./uploads
+      photos-output-path: ./uploads # file location
 
 server:
   port: 8088

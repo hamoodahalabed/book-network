@@ -47,12 +47,12 @@
     <p>Hello, <span th:text="${username}"></span>!</p>
     <p>Thank you for registering. Please activate your account by clicking the link below:</p>
     <p>
-        <a class="button" th:href="${confirmationUrl}">Activate Account</a>
+        <a class="button" th:href="@{${confirmationUrl}}">Activate Account</a>
     </p>
     <p>Your activation code is: <strong th:text="${activation_code}"></strong></p>
     <p><strong>Note:</strong> This token will be valid for only 5 minutes.</p>
     <p>If the button above doesn't work, you can copy and paste this URL into your browser:</p>
-    <p><a th:href="${confirmationUrl}" th:text="${confirmationUrl}"></a></p>
+    <p><a th:href="@{${confirmationUrl}}" th:text="${confirmationUrl}"></a></p>
     <div class="footer">
         <p>Thank you!</p>
     </div>
