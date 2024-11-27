@@ -1,6 +1,6 @@
 # 📚 Book Network Project
 
-The **Book Network Project** is a web application that allows users to manage their book collections and borrow books from other users. It offers features like user registration, login, book management, and borrowing/returning books.
+The **Book Network Project** is a web application that allows users to manage their book collections and borrow books from other users. It offers features like user registration, login, activate account by email otp, book management, and borrowing/returning books and much more.
 
 ---
 
