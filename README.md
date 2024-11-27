@@ -22,10 +22,6 @@ The **Book Network Project** is a web application that allows users to manage th
 - **Borrow Books**: Request to borrow books from other users.
 - **Return Books**: Return borrowed books to the original owner.
 
-### 3. Borrowing and Returning Books
-- **Borrow Books**: Request to borrow books from other users.
-- **Return Books**: Return borrowed books to the original owner.
-
   And much more...
 ---
 
